@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import mainHeroImage from '../assets/images/image.png';
 import flowPlannerImage from '../assets/images/image copy.png';
 import meditativeJournalImage from '../assets/images/image copy 3.png';
@@ -52,13 +52,13 @@ const LandingPage = ({ onGetStarted }) => {
         </div>
       </section>
       <section id="about" className="px-6 py-24 max-w-6xl mx-auto scroll-mt-20">
-        <div className="mb-12">
+        <div className="mb-12 text-left">
           <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-[#8B4513]">Our Philosophy</span>
           <h2 className="text-3xl md:text-5xl font-serif leading-[1.1] text-stone-900 mt-2">
             Why <span className="italic text-[#C67347]">Alaya</span> was Created
           </h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
           {[
             { title: "The Alaya Vision", desc: "We believe yoga is more than just movement; it is a way of life. Alaya was built to bridge the gap between modern schedules and ancient mindfulness." },
             { title: "Rooted in Ritual", desc: "Our platform focuses on consistency. By providing tools to plan and track your practice, we help you turn sporadic effort into a sacred ritual." },
@@ -77,7 +77,7 @@ const LandingPage = ({ onGetStarted }) => {
           <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-[#8B4513] mb-2 block">Curated Sessions</span>
           <h2 className="text-3xl md:text-4xl font-serif text-stone-900">Our Classes</h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
           {[
             { category: "Simple", desc: "Perfect for beginners or those seeking gentle movement.", list: ["Hatha Foundations", "Gentle Flow", "Restorative Stretch"] },
             { category: "Meditate", desc: "Deep focus on breathwork and mental clarity.", list: ["Vipassana Intro", "Yin Yoga Ritual", "Pranayama Breath"] },
@@ -99,7 +99,7 @@ const LandingPage = ({ onGetStarted }) => {
         </div>
       </section>
       <section id="features" className="py-24 px-6 max-w-6xl mx-auto scroll-mt-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-left">
           {[
             { title: "Intuitive Flow Planner", desc: "Build your personalized daily ritual with our drag-and-drop sequence builder.", img: flowPlannerImage },
             { title: "Guided Meditative Journals", desc: "Reflect on your physical and emotional journey. Track your progress in mental clarity.", img: meditativeJournalImage }
@@ -136,21 +136,66 @@ const LandingPage = ({ onGetStarted }) => {
           </button>
         </div>
       </section>
-      <section id="contact" className="py-24 px-6 max-w-4xl mx-auto scroll-mt-20 text-center">
-        <h2 className="text-4xl font-serif mb-12">Connect With Us</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="bg-white/50 p-10 rounded-[40px] border border-white hover:shadow-xl transition-all">
-            <span className="text-[10px] uppercase tracking-widest font-bold text-[#8B4513] block mb-4">Inquiry</span>
-            <div className="text-5xl font-serif">01-34567</div>
+      <footer id="contact" className="bg-[#3A3732] text-[#E5E1D8] pt-20 pb-12 px-10 md:px-20 mt-20 rounded-t-[60px] scroll-mt-20">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16 text-left">
+            <div className="md:col-span-5 space-y-6">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-[#C67347] rounded-full flex items-center justify-center text-white font-serif italic text-2xl">A</div>
+                <h2 className="text-3xl font-serif tracking-tight">Alaya Studio</h2>
+              </div>
+              <p className="text-stone-400 text-sm leading-relaxed max-w-sm font-light">
+                Alaya is more than a portal; it is a commitment to your daily ritual. Access your curated flows and stillness in one breath.
+              </p>
+              <div className="flex gap-4 pt-2">
+                {['f', 't', 'p', 'i', 'y'].map((social) => (
+                  <div key={social} className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-[10px] uppercase font-bold hover:bg-[#C67347] transition-all cursor-pointer border border-white/5">
+                    {social}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="md:col-span-3 space-y-6">
+              <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#C67347]">Contact</h4>
+              <ul className="space-y-4 text-sm text-stone-400 font-light">
+                <li className="flex flex-col border-b border-white/5 pb-2">
+                  <span className="text-white font-medium">+977 01-34567</span>
+                  <span className="text-[10px] opacity-60 uppercase tracking-tighter">Inquiry Line</span>
+                </li>
+                <li className="flex flex-col border-b border-white/5 pb-2">
+                  <span className="text-white font-medium">namaste@alaya.com</span>
+                  <span className="text-[10px] opacity-60 uppercase tracking-tighter">Email Sanctuary</span>
+                </li>
+                <li className="flex flex-col">
+                  <span className="text-white font-medium">4517 Kathmandu, NP</span>
+                  <span className="text-[10px] opacity-60 uppercase tracking-tighter">Physical Space</span>
+                </li>
+              </ul>
+            </div>
+            <div className="md:col-span-4 space-y-6">
+              <div className="bg-white/5 p-8 rounded-[40px] border border-white/5">
+                <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#C67347] mb-2">Sanctuary Access</h4>
+                <p className="text-xs text-stone-400 font-light mb-6">Ready to begin your journey? Join our community today.</p>
+                <button 
+                  onClick={onGetStarted}
+                  className="group flex items-center justify-between bg-white/10 border border-white/10 px-6 py-4 rounded-2xl hover:bg-[#C67347] hover:border-[#C67347] transition-all duration-500 w-full"
+                >
+                  <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-white">Join the Circle</span>
+                  <span className="text-[#C67347] group-hover:text-white group-hover:translate-x-2 transition-all text-lg">→</span>
+                </button>
+              </div>
+            </div>
           </div>
-          <div className="bg-[#8B4513] p-10 rounded-[40px] text-white hover:shadow-xl transition-all">
-            <span className="text-[10px] uppercase tracking-widest font-bold text-white/60 block mb-4">Joining</span>
-            <div className="text-5xl font-serif">9861992910</div>
+          <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p className="text-[10px] uppercase tracking-[0.4em] font-bold text-stone-500">
+              Copyright © 2026 <span className="text-[#C67347]">Alaya Studio</span>. All Rights Reserved.
+            </p>
+            <div className="flex gap-8 text-[9px] uppercase tracking-widest font-bold text-stone-500">
+              <span className="hover:text-white cursor-pointer transition-colors">User Terms</span>
+              <span className="hover:text-white cursor-pointer transition-colors">Privacy Policy</span>
+            </div>
           </div>
         </div>
-      </section>
-      <footer className="py-12 text-center border-t border-black/5">
-        <p className="text-[10px] uppercase tracking-[0.4em] font-bold text-stone-400">© 2026 Alaya • Breathe • Plan • Peace</p>
       </footer>
     </div>
   );
