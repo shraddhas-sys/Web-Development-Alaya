@@ -13,7 +13,6 @@ const LandingPage = ({ onGetStarted }) => {
             <img src={alayaLogo} alt="Alaya Logo" className="w-16 h-16 object-contain group-hover:rotate-12 transition-transform duration-500 drop-shadow-sm" />
             <span className="text-xl font-serif tracking-widest font-bold text-[#333] group-hover:text-[#8B4513] transition-colors">ALAYA</span>
           </div>
-
           <div className="flex items-center gap-6 md:gap-8">
             <nav className="hidden lg:flex items-center gap-6 text-[9px] uppercase tracking-[0.25em] font-bold text-stone-600">
               <a href="#about" className="hover:text-[#8B4513] transition-colors">About Us</a>
@@ -47,7 +46,7 @@ const LandingPage = ({ onGetStarted }) => {
         <div className="md:w-1/2 w-full mt-12 md:mt-0">
           <div className="relative group">
             <div className="absolute -top-10 -right-10 w-64 h-64 bg-white/30 blur-3xl rounded-full group-hover:bg-[#C67347]/20 transition-colors duration-700"></div>
-            <img src={mainHeroImage} className="w-full h-[500px] object-cover rounded-[40px] shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01] group-hover:shadow-[0_0_40px_rgba(255,255,255,0.3)]" alt="Yoga Hero" />
+            <img src={mainHeroImage} className="w-full h-125 object-cover rounded-[40px] shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01] group-hover:shadow-[0_0_40px_rgba(255,255,255,0.3)]" alt="Yoga Hero" />
           </div>
         </div>
       </section>
@@ -89,7 +88,7 @@ const LandingPage = ({ onGetStarted }) => {
               <ul className="space-y-4">
                 {item.list.map((yoga, idx) => (
                   <li key={idx} className="flex items-center gap-3 text-sm text-stone-700 font-medium group/item">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#C67347] transition-all group-hover/item:shadow-[0_0_12px_#C67347] group-hover/item:scale-125"></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#C67347] transition-all group-hover/item:shadow-[0_0_12_#C67347] group-hover/item:scale-125"></span>
                     {yoga}
                   </li>
                 ))}
@@ -98,7 +97,7 @@ const LandingPage = ({ onGetStarted }) => {
           ))}
         </div>
       </section>
-      <section id="features" className="py-24 px-6 max-w-6xl mx-auto scroll-mt-20">
+       <section id="features" className="py-24 px-6 max-w-6xl mx-auto scroll-mt-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-left">
           {[
             { title: "Intuitive Flow Planner", desc: "Build your personalized daily ritual with our drag-and-drop sequence builder.", img: flowPlannerImage },
@@ -114,8 +113,9 @@ const LandingPage = ({ onGetStarted }) => {
           ))}
         </div>
       </section>
+
       <section id="practice" className="py-24 px-6 scroll-mt-20">
-        <div className="max-w-6xl mx-auto bg-gradient-to-br from-[#F5F2ED] to-[#EBE4D9] rounded-[60px] p-10 md:p-20 shadow-xl border border-white text-center relative overflow-hidden">
+        <div className="max-w-6xl mx-auto bg-linear-to-br from-[#F5F2ED] to-[#EBE4D9] rounded-[60px] p-10 md:p-20 shadow-xl border border-white text-center relative overflow-hidden">
           <h2 className="text-4xl md:text-5xl font-serif italic mb-12">Foundation of Practice</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
             {[
@@ -136,6 +136,7 @@ const LandingPage = ({ onGetStarted }) => {
           </button>
         </div>
       </section>
+
       <footer id="contact" className="bg-[#3A3732] text-[#E5E1D8] pt-20 pb-12 px-10 md:px-20 mt-20 rounded-t-[60px] scroll-mt-20">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16 text-left">
@@ -147,31 +148,26 @@ const LandingPage = ({ onGetStarted }) => {
               <p className="text-stone-400 text-sm leading-relaxed max-w-sm font-light">
                 Alaya is more than a portal; it is a commitment to your daily ritual. Access your curated flows and stillness in one breath.
               </p>
-              <div className="flex gap-4 pt-2">
-                {['f', 't', 'p', 'i', 'y'].map((social) => (
-                  <div key={social} className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-[10px] uppercase font-bold hover:bg-[#C67347] transition-all cursor-pointer border border-white/5">
-                    {social}
-                  </div>
-                ))}
-              </div>
             </div>
+
             <div className="md:col-span-3 space-y-6">
               <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#C67347]">Contact</h4>
               <ul className="space-y-4 text-sm text-stone-400 font-light">
                 <li className="flex flex-col border-b border-white/5 pb-2">
-                  <span className="text-white font-medium">+977 01-34567</span>
+                  <span className="text-white font-medium">01-490511</span>
                   <span className="text-[10px] opacity-60 uppercase tracking-tighter">Inquiry Line</span>
                 </li>
                 <li className="flex flex-col border-b border-white/5 pb-2">
-                  <span className="text-white font-medium">namaste@alaya.com</span>
-                  <span className="text-[10px] opacity-60 uppercase tracking-tighter">Email Sanctuary</span>
+                  <span className="text-white font-medium">9719873218</span>
+                  <span className="text-[10px] opacity-60 uppercase tracking-tighter">Joining Number</span>
                 </li>
                 <li className="flex flex-col">
-                  <span className="text-white font-medium">4517 Kathmandu, NP</span>
-                  <span className="text-[10px] opacity-60 uppercase tracking-tighter">Physical Space</span>
+                  <span className="text-white font-medium">alaya@gmail.com</span>
+                  <span className="text-[10px] opacity-60 uppercase tracking-tighter">Email Sanctuary</span>
                 </li>
               </ul>
             </div>
+
             <div className="md:col-span-4 space-y-6">
               <div className="bg-white/5 p-8 rounded-[40px] border border-white/5">
                 <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#C67347] mb-2">Sanctuary Access</h4>
@@ -180,19 +176,10 @@ const LandingPage = ({ onGetStarted }) => {
                   onClick={onGetStarted}
                   className="group flex items-center justify-between bg-white/10 border border-white/10 px-6 py-4 rounded-2xl hover:bg-[#C67347] hover:border-[#C67347] transition-all duration-500 w-full"
                 >
-                  <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-white">Join the Circle</span>
+                   <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-white">Join the Circle</span>
                   <span className="text-[#C67347] group-hover:text-white group-hover:translate-x-2 transition-all text-lg">→</span>
                 </button>
               </div>
-            </div>
-          </div>
-          <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p className="text-[10px] uppercase tracking-[0.4em] font-bold text-stone-500">
-              Copyright © 2026 <span className="text-[#C67347]">Alaya Studio</span>. All Rights Reserved.
-            </p>
-            <div className="flex gap-8 text-[9px] uppercase tracking-widest font-bold text-stone-500">
-              <span className="hover:text-white cursor-pointer transition-colors">User Terms</span>
-              <span className="hover:text-white cursor-pointer transition-colors">Privacy Policy</span>
             </div>
           </div>
         </div>
