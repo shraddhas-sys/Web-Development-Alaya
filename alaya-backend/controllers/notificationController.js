@@ -1,101 +1,77 @@
 const Notification = require("../models/Notification");
 
-exports.addNotification = async (req, res) => {
-    try {
-        const { userId, title, message, type } = req.body;
-
-        if (!userId || !message) {
-            return res.status(400).json({
-                success: false,
-                message: "userId and message are required"
-            });
-        }
-
-        const notification = await Notification.create({
-            userId,
-            title,
-            message,
-            type: type || "info",
-            isRead: false
-        });
-
-        res.status(201).json({
-            success: true,
-            data: notification
-        });
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message
-        });
-    }
+// Backward compatible part
+exports.getUserNotifications = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const notifications = await Notification.findAll({
+      where: { userId },
+      order: [['createdAt', 'DESC']]
+    });
+    return res.json({ success: true, data: notifications });
+  } catch (err) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
 };
 
-// --------------------
-// Get All Notifications (by user)
-// --------------------
-exports.getNotifications = async (req, res) => {
-    try {
-        const { userId } = req.params;
-
-        const notifications = await Notification.findAll({
-            where: { userId },
-            order: [["createdAt", "DESC"]]
-        });
-
-        res.json({
-            success: true,
-            data: notifications
-        });
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message
-        });
-    }
+// Get notification for the current logged in user
+exports.getMyNotifications = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const notifications = await Notification.findAll({
+      where: { userId },
+      order: [['createdAt', 'DESC']]
+    });
+    return res.json({ success: true, data: notifications });
+  } catch (err) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
 };
 
+// Backward-compatible : Simple updates
 exports.markAsRead = async (req, res) => {
-    try {
-        const { id } = req.params;
-
-        const notification = await Notification.findByPk(id);
-        if (!notification) {
-            return res.status(404).json({
-                success: false,
-                message: "Notification not found"
-            });
-        }
-
-        notification.isRead = true;
-        await notification.save();
-
-        res.json({
-            success: true,
-            data: notification
-        });
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message
-        });
-    }
+  try {
+    const { id } = req.params;
+    await Notification.update({ isRead: true }, { where: { id } });
+    return res.json({ success: true, message: "Marked as read" });
+  } catch (err) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
 };
 
-exports.deleteNotification = async (req, res) => {
-    try {
-        const { id } = req.params;
+//  (auth, ownership) mark as read
+exports.markOneAsRead = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const n = await Notification.findByPk(id);
+    if (!n) return res.status(404).json({ success: false, message: "Notification not found" });
+    if (req.user.role !== 'admin' && n.userId !== req.user.id) return res.status(403).json({ success: false, message: "Forbidden" });
+    n.isRead = true;
+    await n.save();
+    return res.json({ success: true, message: "Marked as read", data: n });
+  } catch (err) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+};
 
-        await Notification.destroy({ where: { id } });
+exports.markAllAsRead = async (req, res) => {
+  try {
+    await Notification.update({ isRead: true }, { where: { userId: req.user.id, isRead: false } });
+    return res.json({ success: true, message: "All marked as read" });
+  } catch (err) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+};
 
-        res.json({
-            success: true,
-            message: "Notification deleted"
-        });
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message
-        });
-    }
+exports.deleteOne = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const n = await Notification.findByPk(id);
+    if (!n) return res.status(404).json({ success: false, message: "Notification not found" });
+    if (req.user.role !== 'admin' && n.userId !== req.user.id) return res.status(403).json({ success: false, message: "Forbidden" });
+    await n.destroy();
+    return res.json({ success: true, message: "Deleted" });
+  } catch (err) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
 };
