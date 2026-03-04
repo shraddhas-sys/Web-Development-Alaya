@@ -27,6 +27,16 @@ const Plan = sequelize.define("Plan", {
     type: DataTypes.TEXT, 
     allowNull: true 
   },
+
+  status: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: "planned" 
+  },
+  completedAt: {
+    type: DataTypes.DATE,
+    allowNull: true
+  }
 }, { 
   tableName: "plans", 
   timestamps: true 
