@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("../database/db");
+const User = require("./user"); 
 
 const Notification = sequelize.define("Notification", {
     id: {
@@ -9,10 +10,15 @@ const Notification = sequelize.define("Notification", {
     },
     userId: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+            model: 'users', 
+            key: 'id'
+        }
     },
     title: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: true
     },
     message: {
         type: DataTypes.STRING,
@@ -20,7 +26,7 @@ const Notification = sequelize.define("Notification", {
     },
     type: {
         type: DataTypes.STRING,
-        defaultValue: "info"
+        defaultValue: "info" 
     },
     isRead: {
         type: DataTypes.BOOLEAN,
@@ -28,7 +34,7 @@ const Notification = sequelize.define("Notification", {
     }
 }, {
     tableName: "notifications",
-    timestamps: true
+    timestamps: true 
 });
 
 module.exports = Notification;
