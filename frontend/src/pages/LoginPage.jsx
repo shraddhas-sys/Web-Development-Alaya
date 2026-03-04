@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Mail, Lock } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import alayaLogo from '../assets/images/image copy 2.png';
 import { loginUser } from '../services/api'; 
 
 const LoginPage = ({ onLoginSuccess, onGoToRegister, onForgotPassword }) => {
+  // State management
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,10 +17,21 @@ const LoginPage = ({ onLoginSuccess, onGoToRegister, onForgotPassword }) => {
       const response = await loginUser({ email, password });
 
       if (response.data.success) {
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("user", JSON.stringify(response.data.user)); 
-        alert("WELCOME BACK TO ALAYA!"); 
-        onLoginSuccess();
+        const { user, token } = response.data;
+
+        //  Data store 
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user)); 
+
+        // Navigation Handle 
+        if (user.role === 'admin') {
+          alert("WELCOME TO ALAYA ADMIN PORTAL!");
+        } else {
+          alert("WELCOME BACK TO ALAYA!"); 
+        }
+
+        // App.jsx 
+        onLoginSuccess(); 
       }
     } catch (err) {
       const errorMsg = err.response?.data?.message || "THE SANCTUARY IS CURRENTLY UNREACHABLE.";
@@ -94,13 +107,20 @@ const LoginPage = ({ onLoginSuccess, onGoToRegister, onForgotPassword }) => {
                 <div className="relative group">
                   <Lock className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 group-focus-within:text-[#C67347] transition-colors" />
                   <input 
-                    type="password" 
+                    type={showPassword ? "text" : "password"} 
                     placeholder="••••••••" 
-                    className="w-full bg-white/80 border border-stone-200 rounded-full py-4 pl-14 pr-8 outline-none text-sm transition-all focus:ring-4 focus:ring-[#C67347]/10 focus:border-[#C67347] shadow-inner"
+                    className="w-full bg-white/80 border border-stone-200 rounded-full py-4 pl-14 pr-12 outline-none text-sm transition-all focus:ring-4 focus:ring-[#C67347]/10 focus:border-[#C67347] shadow-inner"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                   />
+                  <button 
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-6 top-1/2 -translate-y-1/2 text-stone-400 hover:text-[#C67347] transition-colors"
+                  >
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
                 </div>
               </div>
 
