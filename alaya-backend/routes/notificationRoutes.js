@@ -1,34 +1,17 @@
 const express = require("express");
 const router = express.Router();
-const { body, param } = require("express-validator"); 
-const notificationController = require("../controllers/notificationController");
+const notificationCtrl = require("../controllers/notificationController");
+const auth = require("../middleware/auth");
 
-router.post(
-  "/",
-  [
-    body("title").notEmpty().withMessage("Title is required"),
-    body("message").notEmpty().withMessage("Message is required"),
-    body("userId").notEmpty().withMessage("User ID is required"),
-  ],
-  notificationController.addNotification
-);
+// mark as read part
+router.get("/me", auth, notificationCtrl.getMyNotifications);
+router.patch("/:id/read", auth, notificationCtrl.markOneAsRead);
+router.patch("/read-all", auth, notificationCtrl.markAllAsRead);
+router.delete("/:id", auth, notificationCtrl.deleteOne);
 
-router.get(
-  "/user/:userId",
-  [param("userId").notEmpty().withMessage("User ID is required")],
-  notificationController.getNotifications
-);
-
-router.patch(
-  "/:id/read",
-  [param("id").notEmpty().withMessage("Notification ID is required")],
-  notificationController.markAsRead
-);
-
-router.delete(
-  "/:id",
-  [param("id").notEmpty().withMessage("Notification ID is required")],
-  notificationController.deleteNotification
-);
+// Backward-compatible 
+router.get("/all/:userId", auth, notificationCtrl.getUserNotifications);
+router.get("/:userId", auth, notificationCtrl.getUserNotifications);
+router.patch("/read/:id", auth, notificationCtrl.markAsRead);
 
 module.exports = router;
