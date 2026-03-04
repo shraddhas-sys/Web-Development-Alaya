@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { User, Mail, Lock, ShieldCheck } from 'lucide-react';
+import { User, Mail, Lock, ShieldCheck, Eye, EyeOff } from 'lucide-react';
 import { registerUser } from '../services/api'; 
 import alayaLogo from '../assets/images/image copy 2.png';
 
 const RegisterPage = ({ onRegisterSuccess, onGoToLogin }) => {
+  // State management
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -12,11 +13,15 @@ const RegisterPage = ({ onRegisterSuccess, onGoToLogin }) => {
   });
 
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  // Updates form state 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // Form Submission and Validation
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
@@ -45,6 +50,7 @@ const RegisterPage = ({ onRegisterSuccess, onGoToLogin }) => {
     }
   };
 
+  // Main Container
   return (
     <div className="min-h-screen bg-[#F0EDE8] flex items-center justify-center p-4 md:p-10 font-sans selection:bg-[#C67347] selection:text-white relative overflow-hidden">
       <div className="absolute top-[-10%] left-[-10%] w-200 h-200 bg-[#E2D9CF] rounded-full blur-[150px] opacity-60"></div>
@@ -99,19 +105,37 @@ const RegisterPage = ({ onRegisterSuccess, onGoToLogin }) => {
                 />
                 <label htmlFor="reg-email" className="absolute left-0 -top-4 text-[10px] uppercase tracking-widest font-bold text-stone-400 peer-placeholder-shown:text-sm peer-placeholder-shown:top-2 peer-focus:-top-4 peer-focus:text-[10px] peer-focus:text-[#C67347] transition-all cursor-text">Email Address</label>
               </div>
+               
+               
                <div className="relative group">
-                <Lock className="absolute right-0 bottom-3 w-4 h-4 text-stone-300 group-focus-within:text-[#C67347] transition-colors" />
+                <button 
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-0 bottom-3 z-20 text-stone-300 hover:text-[#C67347] transition-colors"
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
                 <input 
-                  type="password" name="password" value={formData.password} onChange={handleChange}
+                  type={showPassword ? "text" : "password"} 
+                  name="password" value={formData.password} onChange={handleChange}
                   className="peer w-full bg-transparent border-b border-stone-200 py-2 pr-8 outline-none focus:border-[#C67347] transition-colors placeholder-transparent text-sm text-stone-800"
                   placeholder="Password" id="reg-pass" required
                 />
                 <label htmlFor="reg-pass" className="absolute left-0 -top-4 text-[10px] uppercase tracking-widest font-bold text-stone-400 peer-placeholder-shown:text-sm peer-placeholder-shown:top-2 peer-focus:-top-4 peer-focus:text-[10px] peer-focus:text-[#C67347] transition-all cursor-text">Password</label>
               </div>
+
+             
               <div className="relative group">
-                <ShieldCheck className="absolute right-0 bottom-3 w-4 h-4 text-stone-300 group-focus-within:text-[#C67347] transition-colors" />
+                <button 
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute right-0 bottom-3 z-20 text-stone-300 hover:text-[#C67347] transition-colors"
+                >
+                  {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
                 <input 
-                  type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange}
+                  type={showConfirmPassword ? "text" : "password"} 
+                  name="confirmPassword" value={formData.confirmPassword} onChange={handleChange}
                   className="peer w-full bg-transparent border-b border-stone-200 py-2 pr-8 outline-none focus:border-[#C67347] transition-colors placeholder-transparent text-sm text-stone-800"
                   placeholder="Repeat Password" id="reg-repeat" required
                 />
