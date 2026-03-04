@@ -1,57 +1,18 @@
 const express = require("express");
 const router = express.Router();
-const Plan = require("../models/Plan"); 
+const planController = require("../controllers/planController");
+const auth = require("../middleware/auth");
 
-router.post("/add", async (req, res) => {
-  try {
-    const { userId, date, yogaType, duration, notes } = req.body;
-    if (!userId || !date || !yogaType) {
-      return res.status(400).json({ 
-        success: false, 
-        message: "UserId, Date, and YogaType are required fields." 
-      });
-    }
+// Add plan 
+router.post("/add", auth, planController.addPlan);
 
-    const newPlan = await Plan.create({
-      userId,
-      date,
-      yogaType,
-      duration: duration || 30, 
-      notes: notes || ""
-    });
+// List plans for a user
+router.get("/all/:userId", auth, planController.getAllPlans);
 
-    res.status(201).json({ 
-      success: true, 
-      message: "Ritual planned successfully!",
-      data: newPlan 
-    });
-  } catch (err) {
-    console.error("Plan Route Error:", err.message);
-    res.status(500).json({ 
-      success: false, 
-      error: "Failed to save plan: " + err.message 
-    });
-  }
-});
+// Delete plan 
+router.delete("/delete/:id", auth, planController.deletePlan);
 
-router.get("/all/:userId", async (req, res) => {
-  try {
-    const { userId } = req.params;
-    const plans = await Plan.findAll({ 
-      where: { userId },
-      order: [['date', 'ASC']] 
-    });
-
-    res.json({ 
-      success: true, 
-      data: plans 
-    });
-  } catch (err) {
-    res.status(500).json({ 
-      success: false, 
-      error: err.message 
-    });
-  }
-});
+// Complete plan 
+router.patch("/:id/complete", auth, planController.completePlan);
 
 module.exports = router;
