@@ -1,19 +1,23 @@
 const express = require("express");
 const router = express.Router();
 const nutritionCtrl = require("../controllers/nutritionController");
+const Meal = require("../models/meal");
+const auth = require("../middleware/auth");
 
-router.get("/all/:userId", nutritionCtrl.getAllNutritionData);
-router.post("/pantry/add", nutritionCtrl.addPantryItem);
-router.delete("/pantry/:id", nutritionCtrl.deletePantryItem);
+// Admin created meal library (dropdown)
+router.get("/available-meals", async (req, res) => {
+  try {
+    const meals = await Meal.findAll({ order: [['name', 'ASC']] });
+    return res.status(200).json({ success: true, data: meals });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+});
 
-router.post("/grocery/add", nutritionCtrl.addGroceryItem);
-router.patch("/grocery/toggle/:id", nutritionCtrl.toggleGroceryItem);
-router.delete("/grocery/:id", nutritionCtrl.deleteGroceryItem);
+// All nutrition data for a user 
+router.get("/all/:userId", auth, nutritionCtrl.getAllNutritionData);
 
-router.post("/week/save", nutritionCtrl.saveMealPlan);
-
-router.post("/recipes/add", nutritionCtrl.addRecipe);
-router.patch("/recipes/favorite/:id", nutritionCtrl.toggleRecipeFavorite);
-router.delete("/recipes/:id", nutritionCtrl.deleteRecipe);
+// Save/update meal plan for a date
+router.post("/week/save", auth, nutritionCtrl.saveMealPlan);
 
 module.exports = router;
