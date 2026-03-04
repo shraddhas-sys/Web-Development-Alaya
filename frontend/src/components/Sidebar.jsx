@@ -10,6 +10,7 @@ const Sidebar = ({ onLogout, activeTab, setActiveTab }) => {
     { id: 'nutrition', icon: "📅", label: "Nutrition" },
     { id: 'favorites', icon: "❤️", label: "Favorites" }, 
     { id: 'progress', icon: "📈", label: "Progress" },
+    { id: 'settings', icon: "⚙️", label: "Settings" },
   ];
 
   return (
@@ -25,7 +26,7 @@ const Sidebar = ({ onLogout, activeTab, setActiveTab }) => {
             <button 
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className="w-full text-left outline-none border-none bg-transparent"
+              className="w-full text-left outline-none border-none bg-transparent p-0"
             >
               <NavItem 
                 icon={item.icon} 
@@ -36,7 +37,7 @@ const Sidebar = ({ onLogout, activeTab, setActiveTab }) => {
           ))}
         </nav>
 
-        //logout button
+        {/* logout button */}
         <button 
           onClick={() => setShowLogoutModal(true)}
           className="mt-auto flex items-center gap-3 text-stone-500 hover:text-[#C67347] transition-all font-bold uppercase text-[10px] tracking-widest group border-none bg-transparent cursor-pointer"
@@ -46,7 +47,7 @@ const Sidebar = ({ onLogout, activeTab, setActiveTab }) => {
         </button>
       </aside>
 
-      // this is logout model
+      {/* this is logout model */}
       {showLogoutModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center animate-fade-in">
           <div 
