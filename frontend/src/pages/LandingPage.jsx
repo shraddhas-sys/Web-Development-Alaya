@@ -1,4 +1,5 @@
 import React from 'react';
+// Assests part
 import mainHeroImage from '../assets/images/image.png';
 import flowPlannerImage from '../assets/images/image copy.png';
 import meditativeJournalImage from '../assets/images/image copy 3.png';
@@ -7,6 +8,7 @@ import alayaLogo from '../assets/images/image copy 2.png';
 const LandingPage = ({ onGetStarted }) => {
   return (
     <div className="bg-[#E5E1D8] min-h-screen font-sans text-[#333] selection:bg-[#8B4513] selection:text-white scroll-smooth relative">
+      {/* Sticky Navigation Header*/}
       <header className="fixed top-0 left-0 right-0 z-50 bg-[#E5E1D8]/80 backdrop-blur-md">
         <div className="max-w-7xl mx-auto flex justify-between items-center px-10 md:px-20 py-4">
           <div className="flex items-center gap-3 cursor-pointer group" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
@@ -14,6 +16,7 @@ const LandingPage = ({ onGetStarted }) => {
             <span className="text-xl font-serif tracking-widest font-bold text-[#333] group-hover:text-[#8B4513] transition-colors">ALAYA</span>
           </div>
           <div className="flex items-center gap-6 md:gap-8">
+            {/* Desktop Navigation Links */}
             <nav className="hidden lg:flex items-center gap-6 text-[9px] uppercase tracking-[0.25em] font-bold text-stone-600">
               <a href="#about" className="hover:text-[#8B4513] transition-colors">About Us</a>
               <a href="#classes" className="hover:text-[#8B4513] transition-colors">Classes</a>
@@ -22,6 +25,7 @@ const LandingPage = ({ onGetStarted }) => {
               <a href="#contact" className="hover:text-[#8B4513] transition-colors">Contact</a>
             </nav>
 
+            {/* Entry Point */}
             <button onClick={onGetStarted} className="text-[#8B4513] border border-[#8B4513]/40 px-6 py-2 rounded-full text-[10px] uppercase tracking-widest font-bold hover:bg-[#8B4513] hover:text-white transition-all shadow-sm hover:shadow-[0_0_15px_rgba(255,255,255,0.6)]">
               Sign In
             </button>
