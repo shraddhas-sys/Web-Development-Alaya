@@ -1,0 +1,4 @@
+node_modules/
+.env
+alaya-backend/node_modules/
+alaya-backend/.env
